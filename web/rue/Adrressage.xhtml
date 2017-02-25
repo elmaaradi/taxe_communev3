@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    
+    <h:body>
+        <table > 
+
+            <tr>
+                <td>
+                    <h:form id="SecteurListForm">
+                        <p:panel header="#{bundle.ListSecteurTitle}">
+                            <p:dataTable id="datalist" value="#{secteurController.items}" var="item"
+                                         selectionMode="single" selection="#{rueController.secteur}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListSecteurTitle_abreviation}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.abreviation}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListSecteurTitle_nomSecteur}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nomSecteur}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListSecteurTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                    <p:commandButton actionListener="#{rueController.findAnnexs(item)}" icon="ui-icon-search" update=":AnnexeAdministratifListForm:datalist"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  actionListener="#{secteurController.destroy}" update="datalist"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+
+                </td>
+                <td>
+
+                    <h:form id="AnnexeAdministratifListForm">
+                        <p:panel header="#{bundle.ListAnnexeAdministratifTitle}">
+                            <p:dataTable id="datalist" value="#{rueController.secteur.annexeAdministratifs}" var="item"
+                                         selectionMode="single" selection="#{rueController.annexeAdministratif}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListAnnexeAdministratifTitle_nom}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListAnnexeAdministratifTitle_abreviation}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.abreviation}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListAnnexeAdministratifTitle_secteur}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.secteur.nomSecteur}"/>
+                                </p:column>
+
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListAnnexeAdministratifTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                    <p:commandButton actionListener="#{rueController.findQuartiers(item)}" icon="ui-icon-search" update=":QuartierListForm:datalist"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  actionListener="#{annexeAdministratifController.destroy}" update="datalist"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+
+                    <h:form id="QuartierListForm">
+                        <p:panel header="#{bundle.ListQuartierTitle}">
+                            <p:dataTable id="datalist" value="#{rueController.annexeAdministratif.quartiers}" var="item"
+                                         selectionMode="single" selection="#{rueController.quartier}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListQuartierTitle_numAbreviation}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numAbreviation}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListQuartierTitle_nom}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListQuartierTitle_annexeAdministratif}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.annexeAdministratif.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListQuartierTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                    <p:commandButton actionListener="#{rueController.findRues(item)}" icon="ui-icon-search" update=":RueListForm:datalist"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  actionListener="#{quartierController.destroy}" update="datalist"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </td>
+                <td>
+
+
+                    <h:form id="RueListForm">
+                        <p:panel header="#{bundle.ListRueTitle}">
+                            <p:dataTable id="datalist" value="#{rueController.quartier.rues}" var="item"
+                                         selectionMode="single" selection="#{rueController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListRueTitle_numAbreviation}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numAbreviation}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListRueTitle_nom}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListRueTitle_quartier}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.quartier}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListRueTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search"  update=":RueViewForm"  oncomplete="PF('RueViewDialog').show()"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"   actionListener="#{rueController.destroy}" update="datalist"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="createButton" icon="ui-icon-extlink"   value="#{bundle.Create}" actionListener="#{rueController.prepareCreate}" update=":RueCreateForm" oncomplete="PF('RueCreateDialog').show()"/>
+                                  <p:commandButton id="editButton"   icon="ui-icon-gear" value="#{bundle.Edit}" update=":RueEditForm" oncomplete="PF('RueEditDialog').show()"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </td>
+            </tr>
+        </table>
+    </h:body>
+</html>
+

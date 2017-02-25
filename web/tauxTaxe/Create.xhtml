@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TauxTaxeCreateDlg" widgetVar="TauxTaxeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTauxTaxeTitle}">
+            <h:form id="TauxTaxeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tauxTaxeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTauxTaxeLabel_categorie}" for="categorie" />
+                        <p:selectOneMenu id="categorie" value="#{tauxTaxeController.selected.categorie}" >
+                            <f:selectItems value="#{categorieController.itemsAvailableSelectOne}"
+                                           var="categorieItem"
+                                           itemValue="#{categorieItem}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTauxTaxeLabel_taux}" for="taux" />
+                        <p:inputText id="taux" value="#{tauxTaxeController.selected.taux}" title="#{bundle.CreateTauxTaxeTitle_taux}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tauxTaxeController.create}" value="#{bundle.Save}" update="display,:TauxTaxeListForm:datalist,:growl" oncomplete="handleSubmit(args,'TauxTaxeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TauxTaxeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
